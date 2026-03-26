@@ -186,6 +186,13 @@ export default function Home() {
     });
   };
 
+  const handleRefreshTimer = () => {
+    const newExp = Math.floor(Date.now() / 1000) + TIMER_DURATION;
+    setExpiresAt(newExp);
+    localStorage.setItem(EXPIRES_AT_KEY, newExp.toString());
+    startTimer(newExp);
+  };
+
   const handleDelete = () => {
     localStorage.clear();
     window.location.reload();
@@ -228,7 +235,7 @@ export default function Home() {
             <p className='timer' id="timer">{timerText}</p>
           </div>
 
-          <button className="refresh_time" onClick={() => startTimer(expiresAt)} data-tippy-content="Refresh Timer" data-tippy-placement="bottom">
+          <button className="refresh_time" onClick={handleRefreshTimer} data-tippy-content="Refresh Timer" data-tippy-placement="bottom">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5.04833 22.9518V21.2018H8.4585L7.61033 20.3898C6.65172 19.5028 5.97009 18.5099 5.56545 17.4113C5.16082 16.3127 4.9585 15.2025 4.9585 14.0808C4.9585 12.0646 5.54893 10.2566 6.72979 8.65695C7.91065 7.05725 9.45911 5.95903 11.3752 5.36228V7.20649C9.96758 7.75677 8.83795 8.65831 7.98629 9.91111C7.13443 11.1637 6.7085 12.5536 6.7085 14.0808C6.7085 14.9931 6.88126 15.8793 7.22679 16.7393C7.57232 17.5994 8.11005 18.3943 8.84 19.1243L9.58025 19.8648V16.6699H11.3302V22.9518H5.04833ZM16.6252 22.6377V20.7935C18.0327 20.2432 19.1624 19.3417 20.014 18.0889C20.8659 16.8363 21.2918 15.4464 21.2918 13.9192C21.2918 13.0069 21.1191 12.1207 20.7735 11.2607C20.428 10.4006 19.8903 9.60564 19.1603 8.8757L18.4201 8.13516V11.3301H16.6701V5.04816H22.952V6.79816H19.5418L20.39 7.61016C21.3128 8.53318 21.9855 9.53496 22.408 10.6155C22.8306 11.6962 23.0418 12.7974 23.0418 13.9192C23.0418 15.9354 22.4514 17.7433 21.2705 19.343C20.0897 20.9427 18.5412 22.0409 16.6252 22.6377Z" fill="black" />
             </svg>
