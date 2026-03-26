@@ -1,26 +1,377 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    letter-spacing: -2%;
+    gap: 64px;
+    font-size: 16px;
+    background: #ffffff;
+    color: #000000;
+}
+
+main {
+    gap: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0 16px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.intro {
+    text-align: center;
+    margin-top: 120px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.intro h1 {
+    font-size: 42px;
+    margin-bottom: 14px;
+    font-weight: 500;
+}
+
+.intro p {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.65);
+    line-height: 145%;
+}
+
+.main {
+    max-width: 460px;
+    width: 100%;
+}
+
+
+.mail_input {
+    width: 100%;
+    display: flex;
+    gap: 14px;
+    border: 1.5px solid #0066FF;
+    box-shadow: 0px 0px 0px 6px rgba(0, 102, 255, 0.15);
+    border-radius: 14px;
+    padding-left: 14px;
+    padding-right: 7px;
+    height: 64px;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.mail_input p {
+    font-size: 20px;
+    letter-spacing: -1%;
+    line-height: 145%;
+    flex-grow: 1;
+}
+
+.mail_input .copy_btn {
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.mail_input .copy_btn:hover {
+    background: #f2f2f7;
+}
+
+.mail_input .copy_btn:hover * {
+    fill: #0066FF !important;
+}
+
+.mail_input .copy_btn:active {
+    background: #DADADE;
+}
+
+
+.toolbar {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+}
+
+.toolbar button {
+    border: none;
+    background-color: #f2f2f7;
+    border-radius: 14px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.toolbar .timer {
+    width: 34px;
+    text-align: right;
+}
+
+.toolbar button:hover {
+    border-radius: 20px;
+}
+
+.toolbar button:hover * {
+    fill: #0066FF !important;
+}
+
+.toolbar button:active {
+    background: #DADADE;
+}
+
+.toolbar .progress {
+    flex-grow: 1;
+    border-radius: 14px;
+    border: 1px solid #DADADA;
+    display: flex;
+    padding-left: 24px;
+    padding-right: 14px;
+    align-items: center;
+    gap: 14px;
+}
+
+.toolbar .progress .progress_bar {
+    height: 5px;
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 9999px;
+}
+
+.toolbar .progress .progress_bar .filled {
+    background-color: #0066FF;
+    border-radius: 9999px;
+    height: 100%;
+}
+
+.inbox {
+    width: 100%;
+    max-width: 980px;
+    border: 1px solid #DADADA;
+    border-radius: 14px;
+    min-height: 440px;
+    display: flex;
+    flex-direction: column;
+}
+
+.inbox .header {
+    border-bottom: 1px solid #DADADA;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inbox .header .status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.inbox .header .indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #05C646;
+}
+
+.inbox .inbox_body {
+    display: grid;
+    grid-template-columns: 3fr 0fr;
+    /* Div 2 starts with 0 width */
+    overflow: hidden;
+    transition: grid-template-columns 0.3s ease;
+    /* Optional animation */
+    flex-grow: 1;
+}
+
+.inbox .inbox_body.opened {
+    grid-template-columns: 1fr 2fr;
+}
+
+.list {
+    grid-column: 1;
+    min-width: 0;
+    outline: 1px solid #DADADA;
+}
+
+.item {
+    padding: 24px;
+    border-bottom: 1px solid #DADADA;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.item .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 12px;
+}
+
+.item .title {
+    font-weight: 500;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.item .title p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0
+}
+
+.item .title .indicator {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    background-color: #0066FF;
+    border-radius: 50%;
+}
+
+.item .body_text {
+    line-height: 140%;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-clamp: 2;
+}
+
+.single_mail {
+    grid-column: 2;
+    min-width: 0;
+
+}
+
+.single_mail .header {
+    padding: 12px;
+    display: flex;
+    justify-content: start;
+    gap: 16px;
+    align-items: center;
+}
+
+.back_button {
+    width: 38px;
+    height: 38px;
+    border: none;
+    stroke: none;
+    background-color: #f2f2f7;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.back_button:hover {
+    background-color: #DADADE;
+}
+
+.single_mail .header h2 {
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.single_mail .header p {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.item:hover,
+.item.active {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.inbox_body.loading .list {
+    display: none;
+}
+
+.inbox_body.loading .single_mail {
+    display: none;
+}
+
+.loading_content {
+    display: none;
+}
+
+.inbox_body.loading {
+    display: flex;
+}
+
+.inbox_body.loading .loading_content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.loading_content .title {
+    font-weight: 500;
+    margin-bottom: 4px;
+    margin-top: 32px;
+}
+
+.loading_content .sub_text {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tippy styles */
+.tippy-box[data-theme~='antigravity'] {
+    background-color: #222;
+    color: white;
+    border-radius: 8px;
+    font-size: 13px;
+    padding: 4px 8px;
 }
